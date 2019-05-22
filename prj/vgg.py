@@ -1,10 +1,9 @@
 from keras.models import Sequential, Model
 from keras.layers import Dense, Conv2D, Activation, Flatten, Dropout, BatchNormalization as BN, MaxPooling2D as MP
 from keras.applications import VGG16, VGG19
-from keras.applications.vgg16 import preprocess_input as pi16
-from keras.applications.vgg19 import preprocess_input as pi19
 from keras.callbacks import ModelCheckpoint
 from keras.utils import to_categorical
+from keras.backend import squeeze
 import numpy as np
 import tensorflow as tf
 # import matplotlib.pyplot as plt 
@@ -26,11 +25,12 @@ VGG_Config = {
 }
 
 class VGG(object):
-    def __init__(self,name,epochs,batch_size):
-        self.name = name
+    def __init__(self,configs):
+        self.name = configs.VGG
         self.weight_name = 'model/{}.hdf5'.format(self.name)
-        self.epochs = epochs
-        self.batch_size = batch_size
+        self.epochs = configs.epochs
+        self.batch_size = configs.batch_size
+        self.dropout = configs.dropout
         if self.name in VGG_Config.keys():
             self.model = Sequential()
             self.build_model(VGG_Config[self.name])
@@ -56,9 +56,9 @@ class VGG(object):
                     self.model.add(Activation('relu'))
         self.model.add(Flatten())
         self.model.add(Dense(4096,activation='relu'))
-        # self.model.add(Dropout(0.2))
+        self.model.add(Dropout(self.dropout))
         self.model.add(Dense(2048,activation='relu'))
-        # self.model.add(Dropout(0.2))
+        self.model.add(Dropout(self.dropout))
         self.model.add(Dense(7,activation='softmax'))
 
     def prebuilt(self,name):
@@ -68,11 +68,14 @@ class VGG(object):
             base = VGG16(weights='imagenet',include_top=False,input_shape=(48,48,3))
         else:
             base = VGG19(weights='imagenet',include_top=False,input_shape=(48,48,3))
+        base.trainable = False
         transfer = Sequential()
         transfer.add(Flatten(input_shape=base.output_shape[1:]))
         transfer.add(Dense(256,activation='relu'))
         transfer.add(Dense(7,activation='softmax'))
-        self.model = Model(inputs=base.input,output=transfer.output)
+        print(base.output)
+        print(squeeze(base.output,0))
+        self.model = Model(inputs=base.input,output=transfer(base.output))
 
     def train(self,data,label,validation):
         self.model.compile(loss='categorical_crossentropy',optimizer='sgd',metrics=['accuracy'])
@@ -93,6 +96,7 @@ flags = tf.app.flags
 flags.DEFINE_string('VGG',"VGG16","decide the VGG version")
 flags.DEFINE_integer('epochs',10,"epochs to train")
 flags.DEFINE_integer('batch_size',32,"batch size to train")
+flags.DEFINE_float('dropout',0,"dropout rate for full connected layer")
 flags.DEFINE_boolean('is_train',True,"train or test")
 configs = flags.FLAGS
 
@@ -119,25 +123,14 @@ def main(_):
     # 如果直接调用keras提供的vgg，需要将图片拓展到rb三个channel，这里直接复制三次
     if configs.VGG == vgg16pre:  
         train_x = np.array([train_x,train_x,train_x]).squeeze().transpose((1,2,3,0)) 
-        train_x = pi16(np.expand_dims(train_x, axis=0))
-
         validate_x = np.array([validate_x,validate_x,validate_x]).squeeze().transpose((1,2,3,0)) 
-        validate_x = pi16(np.expand_dims(validate_x, axis=0))
-
         test_x = np.array([test_x,test_x,test_x]).squeeze().transpose((1,2,3,0)) 
-        test_x = pi16(np.expand_dims(test_x, axis=0))
     elif configs.VGG == vgg19pre:
         train_x = np.array([train_x,train_x,train_x]).squeeze().transpose((1,2,3,0))
-        train_x = pi19(np.expand_dims(train_x, axis=0))
-
         validate_x = np.array([validate_x,validate_x,validate_x]).squeeze().transpose((1,2,3,0))
-        validate_x = pi19(np.expand_dims(validate_x, axis=0))
-
         test_x = np.array([test_x,test_x,test_x]).squeeze().transpose((1,2,3,0))
-        test_x = pi19(np.expand_dims(test_x, axis=0))
-
     ## model
-    vgg = VGG(configs.VGG,configs.epochs,configs.batch_size)
+    vgg = VGG(configs)
     vgg.print()
     if configs.is_train:
         vgg.train(train_x,train_y,(validate_x,validate_y))
