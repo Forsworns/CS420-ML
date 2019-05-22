@@ -195,12 +195,14 @@ $\;$\hfill Due: 2019/4/14
 
 
 \begin{hw}
+	$$ 
+	\begin{aligned} C_{i}^{\Delta} &=\left(1-A_{i-1}^{\mathrm{\Delta}}\right) C_{i}+C_{i-1}^{\Delta} \\ A_{i}^{\Delta} &=\left(1-A_{i-1}^{\Delta}\right) A_{i}+A_{i-1}^{\Delta} \end{aligned}
+	$$
 K-mean vs GMM (Variant of K-mean).
 \begin{sol}
 	\begin{enumerate}
 		\item[(1)]{
 			Derivation	
-			
 			In this section, I will modify the soft assignment to hard assignment. In another word, I will assign the data point to a specific cluster, which is similar to K-mean method.  
 			
 			Similar to GMM model, I introduce a latent variable $\zv$ to represent the cluster to which a point $\xv$ belongs, \ie 
