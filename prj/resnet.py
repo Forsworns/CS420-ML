@@ -1,14 +1,13 @@
 from keras.models import Sequential, Model
 from keras.layers import Dense, Conv2D, Activation, Flatten, Dropout, BatchNormalization as BN, MaxPooling2D as MP
-from keras.applications import VGG16, VGG19
+from keras.applications import ResNet50
 from keras.callbacks import ModelCheckpoint
 from keras.utils import to_categorical
 from keras.backend import squeeze
 import numpy as np
-import tensorflow as tf
+import tensorflow as tf 
 import pandas as pd
 import os
-# import matplotlib.pyplot as plt 
 
 TD = "train_data.npy"
 TL = "train_label.npy"
@@ -17,18 +16,12 @@ VL = "private_label.npy"
 PD = "public_data.npy"
 PL = "public_label.npy"
 
-vgg16pre = 'VGG16pre'
-vgg19pre = 'VGG19pre'
-VGG_Config = {
-    'VGG11': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
-    'VGG13': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
-    'VGG16': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
-    'VGG19': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 512, 512, 512, 512, 'M'],
-}
+resnet50pre = 'Resnet50pre'
+ResNetConfig = {}
 
-class VGG(object):
+class Resnet(object):
     def __init__(self,configs):
-        self.name = configs.VGG
+        self.name = configs.Resnet
         self.epochs = configs.epochs
         self.batch_size = configs.batch_size
         self.dropout = configs.dropout
@@ -38,17 +31,17 @@ class VGG(object):
             os.mkdir('history')
         self.weight_name = 'model/{}-{}-{}-{}.hdf5'.format(self.name,self.epochs,self.batch_size,self.dropout)
         self.history_name = 'history/{}-{}-{}-{}.csv'.format(self.name,self.epochs,self.batch_size,self.dropout)
-        if self.name in VGG_Config.keys():
+        if self.name in ResNetConfig.keys():
             self.model = Sequential()
-            self.build_model(VGG_Config[self.name])
+            self.build_model(ResNetConfig[self.name])
         else:
             self.model = None
             self.prebuilt(self.name)
 
-    def build_model(self,vgg_config):
+    def build_model(self,resnet_config):
         # 从零建立模型，直接处理灰度图像
         first = True
-        for channel in vgg_config:
+        for channel in resnet_config:
             if channel == 'M':
                 self.model.add(MP(strides=2))
             else:
@@ -71,10 +64,8 @@ class VGG(object):
     def prebuilt(self,name):
         # fine tune 使用imageNet训练过的模型，需要输入rgb图片
         base = None
-        if name == vgg16pre:
-            base = VGG16(weights='imagenet',include_top=False,input_shape=(48,48,3))
-        else:
-            base = VGG19(weights='imagenet',include_top=False,input_shape=(48,48,3))
+        if name == resnet50pre:
+            base = ResNet50(weights='imagenet',include_top=False,input_shape=(48,48,3))
         base.trainable = False
         transfer = Sequential()
         transfer.add(Flatten(input_shape=base.output_shape[1:]))
@@ -102,7 +93,7 @@ class VGG(object):
         self.model.summary()
 
 flags = tf.app.flags
-flags.DEFINE_string('VGG',"VGG16","decide the VGG version")
+flags.DEFINE_string('Resnet',"Resnet50pre","decide the Resnet version")
 flags.DEFINE_integer('epochs',10,"epochs to train")
 flags.DEFINE_integer('batch_size',32,"batch size to train")
 flags.DEFINE_float('dropout',0,"dropout rate for full connected layer")
@@ -129,24 +120,20 @@ def main(_):
     test_y = np.load(PL)
     test_y = to_categorical(test_y)
 
-    # 如果直接调用keras提供的vgg，需要将图片拓展到rb三个channel，这里直接复制三次
-    if configs.VGG == vgg16pre:  
+    # 如果直接调用keras提供的resnet，需要将图片拓展到rb三个channel，这里直接复制三次
+    if configs.Resnet == resnet50pre:  
         train_x = np.array([train_x,train_x,train_x]).squeeze().transpose((1,2,3,0)) 
         validate_x = np.array([validate_x,validate_x,validate_x]).squeeze().transpose((1,2,3,0)) 
         test_x = np.array([test_x,test_x,test_x]).squeeze().transpose((1,2,3,0)) 
-    elif configs.VGG == vgg19pre:
-        train_x = np.array([train_x,train_x,train_x]).squeeze().transpose((1,2,3,0))
-        validate_x = np.array([validate_x,validate_x,validate_x]).squeeze().transpose((1,2,3,0))
-        test_x = np.array([test_x,test_x,test_x]).squeeze().transpose((1,2,3,0))
     ## model
-    vgg = VGG(configs)
-    vgg.print()
+    resnet = Resnet(configs)
+    resnet.print()
     if configs.is_train:
-        vgg.train(train_x,train_y,(validate_x,validate_y))
-        vgg.test(test_x,test_y)
+        resnet.train(train_x,train_y,(validate_x,validate_y))
+        resnet.test(test_x,test_y)
     else:
-        vgg.load()
-        vgg.test(test_x,test_y)
+        resnet.load()
+        resnet.test(test_x,test_y)
 
 if __name__ == "__main__":
     tf.app.run()
