@@ -1,1 +1,3 @@
-dataset/cifar-10
+assignment1/dataset/cifar-10
+assignment2/dataset/
+assignment2/*.jar

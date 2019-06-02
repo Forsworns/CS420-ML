@@ -1,0 +1,808 @@
+\documentclass[UTF8]{article}
+
+\usepackage{ctex}
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+
+\usepackage{amsthm}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+
+
+\newtheorem{thm}{Theorem}
+
+\newtheorem{lemma}[thm]{Lemma}
+
+\newtheorem{fact}[thm]{Fact}
+
+\newtheorem{cor}[thm]{Corollary}
+
+\newtheorem{eg}{Example}
+
+\newtheorem{ex}{Exercise}
+
+\newtheorem{defi}{Definition}
+
+\newtheorem{hw}{Problem}
+
+\newenvironment{sol}
+
+  {\par\vspace{3mm}\noindent{\it Solution}.}
+
+  {\qed}
+
+
+
+\usepackage{algorithm,algorithmic,bm,color}
+
+\floatstyle{plain}
+
+\newfloat{myalgo}{tbhp}{mya}
+
+
+
+\newenvironment{Algorithm}[2][tbh]
+
+{\begin{myalgo}[#1]\centering\begin{minipage}{#2}\begin{algorithm}[H]}%
+
+{\end{algorithm}\end{minipage}\end{myalgo}}
+
+
+
+% Use the postscript times font!
+
+\usepackage{times}
+
+\usepackage{soul}
+
+\usepackage{url}
+
+\usepackage[hidelinks]{hyperref}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[small]{caption}
+
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+
+\usepackage{booktabs}
+
+\usepackage{algorithm}
+
+\usepackage{algorithmic}\usepackage{amsfonts}
+
+\urlstyle{same}
+
+
+
+\makeatletter
+
+\newenvironment{breakablealgorithm}
+
+{% \begin{breakablealgorithm}
+
+	\begin{center}
+
+		\refstepcounter{algorithm}% New algorithm
+
+		\hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
+
+		\renewcommand{\caption}[2][\relax]{% Make a new \caption
+
+			{\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+
+			\ifx\relax##1\relax % #1 is \relax
+
+			\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+
+			\else % #1 is not \relax
+
+			\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+
+			\fi
+
+			\kern2pt\hrule\kern2pt
+
+		}
+
+	}{% \end{breakablealgorithm}
+
+		\kern2pt\hrule\relax% \@fs@post for \@fs@ruled
+
+	\end{center}
+
+}
+
+\makeatother
+
+
+
+\setlength{\parindent}{0pt}
+
+%\setlength{\parskip}{2ex}
+
+\newenvironment{proofof}[1]{\bigskip\noindent{\itshape #1. }}{\hfill$\Box$\medskip}
+
+
+
+\usepackage{enumerate,fullpage,proof}
+
+
+
+% the following package is optional:
+
+%\usepackage{latexsym} 
+
+\usepackage{amsfonts}
+
+\usepackage{subfigure}
+
+\usepackage{booktabs}
+
+\usepackage{stfloats}
+
+\usepackage{amssymb}
+
+\DeclareMathOperator{\diag}{diag}
+
+\DeclareMathOperator{\mst}{s.t.}
+
+\DeclareMathOperator{\var}{Var}
+
+\DeclareMathOperator{\cov}{Cov}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+
+
+\newcommand{\argmin}{\arg\!\min}
+
+\newcommand{\argmax}{\arg\!\max}
+
+\newcommand{\Amat}{{\boldsymbol A}}
+
+\newcommand{\Bmat}{{\boldsymbol B}}
+
+\newcommand{\Cmat}{{\boldsymbol C}}
+
+\newcommand{\Dmat}{{\boldsymbol D}}
+
+\newcommand{\Emat}[0]{{{\boldsymbol E}}}
+
+\newcommand{\Fmat}[0]{{{\boldsymbol F}}}
+
+\newcommand{\Gmat}[0]{{{\boldsymbol G}}}
+
+\newcommand{\Hmat}[0]{{{\boldsymbol H}}}
+
+\newcommand{\Imat}{{\boldsymbol I}}
+
+\newcommand{\Jmat}[0]{{{\boldsymbol J}}}
+
+\newcommand{\Kmat}[0]{{{\boldsymbol K}}}
+
+\newcommand{\Lmat}[0]{{{\boldsymbol L}}}
+
+\newcommand{\Mmat}[0]{{{\boldsymbol M}}}
+
+\newcommand{\Nmat}[0]{{{\boldsymbol N}}}
+
+\newcommand{\Omat}[0]{{{\boldsymbol O}}}
+
+\newcommand{\Pmat}[0]{{{\boldsymbol P}}}
+
+\newcommand{\Qmat}[0]{{{\boldsymbol Q}}}
+
+\newcommand{\Rmat}[0]{{{\boldsymbol R}}}
+
+\newcommand{\Smat}[0]{{{\boldsymbol S}}}
+
+\newcommand{\Tmat}[0]{{{\boldsymbol T}}}
+
+\newcommand{\Umat}{{{\boldsymbol U}}}
+
+\newcommand{\Vmat}[0]{{{\boldsymbol V}}}
+
+\newcommand{\Wmat}[0]{{{\boldsymbol W}}}
+
+\newcommand{\Xmat}{{\boldsymbol X}}
+
+\newcommand{\Ymat}[0]{{{\boldsymbol Y}}}
+
+\newcommand{\Zmat}{{\boldsymbol Z}}
+
+
+
+\newcommand{\av}{\boldsymbol{a}}
+
+\newcommand{\Av}{\boldsymbol{A}}
+
+\newcommand{\Cv}{\boldsymbol{C}}
+
+\newcommand{\bv}{\boldsymbol{b}}
+
+\newcommand{\cv}{{\boldsymbol{c}}}
+
+\newcommand{\dv}{\boldsymbol{d}}
+
+\newcommand{\ev}[0]{{\boldsymbol{e}}}
+
+\newcommand{\fv}{\boldsymbol{f}}
+
+\newcommand{\Fv}[0]{{\boldsymbol{F}}}
+
+\newcommand{\gv}[0]{{\boldsymbol{g}}}
+
+\newcommand{\hv}[0]{{\boldsymbol{h}}}
+
+\newcommand{\iv}[0]{{\boldsymbol{i}}}
+
+\newcommand{\jv}[0]{{\boldsymbol{j}}}
+
+\newcommand{\kv}[0]{{\boldsymbol{k}}}
+
+\newcommand{\lv}[0]{{\boldsymbol{l}}}
+
+\newcommand{\mv}[0]{{\boldsymbol{m}}}
+
+\newcommand{\nv}{\boldsymbol{n}}
+
+\newcommand{\ov}[0]{{\boldsymbol{o}}}
+
+\newcommand{\pv}[0]{{\boldsymbol{p}}}
+
+\newcommand{\qv}[0]{{\boldsymbol{q}}}
+
+\newcommand{\rv}[0]{{\boldsymbol{r}}}
+
+\newcommand{\sv}[0]{{\boldsymbol{s}}}
+
+\newcommand{\tv}[0]{{\boldsymbol{t}}}
+
+\newcommand{\uv}[0]{{\boldsymbol{u}}}
+
+\newcommand{\vv}{\boldsymbol{v}}
+
+\newcommand{\wv}{\boldsymbol{w}}
+
+\newcommand{\Wv}{\boldsymbol{W}}
+
+\newcommand{\xv}{\boldsymbol{x}}
+
+\newcommand{\yv}{\boldsymbol{y}}
+
+\newcommand{\Xv}{\boldsymbol{X}}
+
+\newcommand{\Yv}{\boldsymbol{Y}}
+
+\newcommand{\zv}{\boldsymbol{z}}
+
+
+
+\newcommand{\xvf}{\widetilde{\xv}}
+
+\newcommand{\Fmb}{\boldsymbol{\mathcal{F}}}
+
+
+
+\newcommand{\Gammamat}[0]{{\boldsymbol{\Gamma}}}
+
+\newcommand{\Deltamat}[0]{{\boldsymbol{\Delta}}}
+
+\newcommand{\Thetamat}{\boldsymbol{\Theta}}
+
+\newcommand{\Lambdamat}{{\boldsymbol{\Lambda}}}
+
+\newcommand{\Ximat}[0]{{\boldsymbol{\Xi}}}
+
+\newcommand{\Pimat}[0]{{\boldsymbol{\Pi}} }
+
+\newcommand{\Sigmamat}{\boldsymbol{\Sigma}}
+
+\newcommand{\Upsilonmat}[0]{{\boldsymbol{\Upsilon}} }
+
+\newcommand{\Phimat}{\boldsymbol{\Phi}}
+
+\newcommand{\Psimat}{\boldsymbol{\Psi}}
+
+\newcommand{\Omegamat}{{\boldsymbol{\Omega}}}
+
+
+
+\newcommand{\Lambdav}{\bm{\Lambda}}
+
+\newcommand{\alphav}{\boldsymbol{\alpha}}
+
+\newcommand{\betav}[0]{{\boldsymbol{\beta}} }
+
+\newcommand{\gammav}{{\boldsymbol{\gamma}}}
+
+\newcommand{\deltav}[0]{{\boldsymbol{\delta}} }
+
+\newcommand{\epsilonv}{\boldsymbol{\epsilon}}
+
+\newcommand{\zetav}[0]{{\boldsymbol{\zeta}} }
+
+\newcommand{\etav}[0]{{\boldsymbol{\eta}} }
+
+\newcommand{\thetav}{\boldsymbol{\theta}}
+
+\newcommand{\iotav}[0]{{\boldsymbol{\iota}} }
+
+\newcommand{\kappav}{{\boldsymbol{\kappa}}}
+
+\newcommand{\lambdav}[0]{{\boldsymbol{\lambda}} }
+
+\newcommand{\muv}{\boldsymbol{\mu}}
+
+\newcommand{\nuv}{{\boldsymbol{\nu}}}
+
+\newcommand{\xiv}{{\boldsymbol{\xi}}}
+
+\newcommand{\omicronv}[0]{{\boldsymbol{\omicron}} }
+
+\newcommand{\piv}{\boldsymbol{\pi}}
+
+\newcommand{\rhov}[0]{{\boldsymbol{\rho}} }
+
+\newcommand{\sigmav}[0]{{\boldsymbol{\sigma}} }
+
+\newcommand{\tauv}[0]{{\boldsymbol{\tau}} }
+
+\newcommand{\upsilonv}[0]{{\boldsymbol{\upsilon}} }
+
+\newcommand{\phiv}{\boldsymbol{\phi}}
+
+\newcommand{\chiv}[0]{{\boldsymbol{\chi}} }
+
+\newcommand{\psiv}{\boldsymbol{\psi}}
+
+\newcommand{\omegav}[0]{{\boldsymbol{\omega}} }
+
+
+
+\newcommand{\tsp}{^{\mathsf{T}}}
+
+\newcommand{\inv}{^{-1}}
+
+\newcommand{\ie}{{\em i.e.}}
+
+\newcommand{\wrt}{{\em w.r.t.\,}}
+
+\begin{document}
+
+
+
+$\;$\hfill Due: 2019/4/14
+
+
+
+\begin{center}
+
+{\LARGE\bf 第二次作业}
+
+\end{center}
+
+
+
+
+
+\begin{hw}
+
+PCA Algorithm.
+
+
+
+\begin{sol}
+
+	对输入的数据X做中心化，得到$\bar{\Xmat}$。记$\Smat=(\Xmat-\bar{\Xmat})^T(\Xmat-\bar{\Xmat})$，则求解第一个主成分$\wv$的问题可以表示为
+
+	\begin{equation}
+
+	\label{eq:PCA_w}
+
+	\begin{aligned}
+
+		&\argmax_{\wv} &\wv^T\Smat\wv\\
+
+		&\mst &\wv^T\wv=1
+
+	\end{aligned}
+
+	\end{equation}
+
+	
+
+	下面描述两种方法求解该主成分$\wv$。
+
+	\begin{enumerate}
+
+		\item[(1)]{
+
+			直接构造拉格朗日函数求解问题~\eqref{eq:PCA_w}，求导后可以得到原问题的解在等式
+
+			\begin{equation}
+
+				\label{eq:ei}
+
+				\Smat\wv = \lambda \wv
+
+			\end{equation}
+
+			的解中，即原问题~\eqref{eq:PCA_w}的解$\Smat$的特征向量中。同时注意到在原目标函数中代入等式~\eqref{eq:ei}和$\wv^T\wv=1$，得到优化目标其实为找到最大的$\lambda$，即$\Smat$的最大特征值。
+
+			于是第一种方法可以总结为对$\Smat$做特征值分解，并找到最大的特征值求出它对应的特征向量。
+
+			
+
+			该方法中，对输入数据做中心化的时间复杂度是$\mathcal{O}(Nn)$，求解$\Smat$的时间复杂度是$\mathcal{O}(Nn^2)$，之后对$n\times n$的矩阵$\Smat$做特征值分解的时间复杂度是$\mathcal{O}(n^3)$。综上，该方法的时间复杂度为$\mathcal{O}(Nn^2)$。
+
+		}
+
+		\item[(2)]{
+
+			第二种方法为直接对$\bar{\Xmat}$做奇异值分解(SVD)。注意到从最大投影角度看待PCA时，第一个投影方向$\wv$是能够将数据投影后的分量最大化的方向，这与SVD分解的含义是相吻合的。
+
+			
+
+			该方法中，对输入数据做中心化的时间复杂度是$\mathcal{O}(Nn)$,SVD分解的时间复杂度是$\mathcal{O}(Nn^2)$。综上，该方法的时间复杂度为$\mathcal{O}(Nn^2)$。
+
+		}
+
+	\end{enumerate}
+
+\end{sol}
+
+\end{hw}
+
+
+
+\begin{hw}
+
+	Factor Analysis(FA) 
+
+	
+
+	\begin{sol}
+
+		题干中已经给出了先验$P(\yv)$和似然$P(\xv|\yv)$，需要计算后验$P(\yv|\xv)$，其中$\yv$是隐变量，由贝叶斯公式有
+
+		\begin{equation}
+
+			\label{eq:FA_Bay}
+
+			P(\yv|\xv) = \frac{P(\xv|\yv)P(\yv)}{P(\xv)}。
+
+		\end{equation}
+
+		下面计算$P(\xv)$。
+
+		
+
+		因为$\xv$是高斯分布的线性组合，仍然服从高斯分布。计算其期望值
+
+		\begin{equation}
+
+			\label{eq:FA_E}
+
+			E[\xv] = E[\Amat\yv+\muv+\ev] = E[\Amat\yv]+E[\muv]+E[\ev]=\muv。
+
+		\end{equation}
+
+		计算其方差为
+
+		\begin{equation}
+
+		\label{eq:FA_Var}
+
+		\var[\xv] = \var[\Amat\yv+\muv+\ev] = \var[\Amat\yv]+\var[\muv]+\var[\ev]=\Amat\Sigmamat_y\Amat^T+\Sigmamat_e。
+
+		\end{equation}
+
+		故$\xv\sim G(\muv,\Amat\Sigmamat_y\Amat^T+\Sigmamat_e)$，综合已知的先验和似然，后验分布可以用式子~\eqref{eq:FA_Bay}表示。
+
+		
+
+		如果需要整理出$P(\yv|\xv)$的具体公式，可以依据以下公式进行计算：当已知一个联合分布
+
+		\begin{equation}
+
+			\label{eq:FA_uni}
+
+			\left(
+
+				\begin{aligned}
+
+					\xv_a \\
+
+					\xv_b
+
+				\end{aligned}
+
+			\right)
+
+			,\xv\sim G
+
+			\left(
+
+				\left[	
+
+					\begin{aligned}
+
+					\muv_a \\
+
+					\muv_b
+
+					\end{aligned}
+
+				\right],
+
+				\left[
+
+					\begin{aligned}
+
+					&\Sigmamat_{aa} & \Sigmamat_{ab} \\
+
+					&\Sigmamat_{ba} & \Sigmamat_{bb}
+
+					\end{aligned}
+
+				\right]
+
+			\right)
+
+		\end{equation}
+
+		时，可以设一个随机变量$\zv=\xv_b-\Sigmamat_{ba}\Sigmamat_{aa}^{-1}\xv_a$，易知$\zv$也服从高斯分布且均值为$\muv_b-\Sigmamat_{ba}\Sigmamat_{aa}^{-1}\muv_a$，方差为$\Sigmamat_{aa}$的舒尔补$\Sigmamat_{bb}-\Sigmamat_{ba}\Sigmamat_{aa}^{-1}\Sigmamat_{ab}$（这里有$\Sigmamat_{ab}=\Sigmamat_{ba}$）。
+
+		
+
+		那么就有$\xv_b=\zv+\Sigmamat_{ba}\Sigmamat_{aa}^{-1}\xv_a$，按照这个等式关系再计算$P(\xv_b|\xv_a)$，它服从一个高斯分布，均值为$E[\xv_b|\xv_a]=\muv_b+\Sigmamat_{ba}\Sigmamat_{aa}^{-1}(\xv_a-\muv_a)$，方差为$\var[\xv_b|\xv_a]=\var[\zv]=\Sigmamat_{bb}-\Sigmamat_{ba}\Sigmamat_{bb}^{-1}\Sigmamat_{ab}$。因此，有结论
+
+		\begin{equation}
+
+			\label{eq:conclusion}
+
+			P(\xv_b|\xv_a)=G(\muv_b+\Sigmamat_{ba}\Sigmamat_{aa}^{-1}(\xv_a-\muv_a),\Sigmamat_{bb}-\Sigmamat_{ba}\Sigmamat_{aa}^{-1}\Sigmamat_{ab})。
+
+		\end{equation}
+
+		
+
+		求解$P(\yv|\xv)$，要套用上面的公式\eqref{eq:conclusion}，可以先计算出$\xv$与$\yv$的协方差：
+
+		\begin{equation}
+
+			\label{eq:FA_cov}
+
+			\begin{aligned}
+
+				\cov(\xv,\yv)&=E[(\xv-\muv)(\yv-0)^T]=E[\xv\yv^T-\muv\yv^T] \\
+
+							 &=E[\Amat\yv\yv^T+\ev\yv^T]=E[\Amat\yv\yv^T]+E[\ev\yv^T] \\
+
+							 &=\Amat E[\yv\yv^T] = \Amat E[(\yv-0)(\yv-0)^T] \\
+
+							 &=\Amat \var[\yv] = \Amat\Sigmamat_y
+
+			\end{aligned}
+
+		\end{equation}
+
+		
+
+		那么可以构造$\xv$与$\yv$的联合分布
+
+		\begin{equation}
+
+			\label{eq:FA_build}
+
+			\left(
+
+				\begin{aligned}
+
+					\xv \\ 
+
+					\yv
+
+				\end{aligned}
+
+			\right)\sim G
+
+			\left(
+
+				\left[	
+
+					\begin{aligned}
+
+						\muv \\
+
+						0
+
+					\end{aligned}
+
+				\right],
+
+				\left[
+
+					\begin{aligned}
+
+						 &\Amat\Sigmamat_y\Amat^T+\Sigmamat_e & \Amat\Sigmamat_y \\
+
+						 &\Amat\Sigmamat_y & \Sigmamat_y
+
+					\end{aligned}
+
+				\right]
+
+			\right)。      
+
+		\end{equation}
+
+		套用之前的公式\eqref{eq:conclusion}，得出$P(\yv|\xv)=G(\Amat\Sigmamat_y(\Amat\Sigmamat_y\Amat^T+\Sigmamat_e)^{-1}(\xv-\muv),\Sigmamat_y-\Amat\Sigmamat_y(\Amat\Sigmamat_y\Amat^T+\Sigmamat_e)^{-1}\Amat\Sigmamat_y)$
+
+		
+
+	\end{sol}
+
+\end{hw}
+
+
+
+\begin{hw}
+
+	Independent Component Analysis(ICA)
+
+		
+
+	\begin{sol}
+
+		首先我们知道ICA的目标是从混合信号$\xv=\Amat\sv$中，找到一个矩阵$\Wmat$，近似得恢复出$\sv=\Wmat\xv$。我们最大化non-Gaussianity是出于两种考虑：首先，在$\sv$中，最多只有一个分量可以是服从高斯分布的，否则，因为高斯分布在旋转一定角度后可以是相同的，特别是方差为对角矩阵的情况下，这会导致我们无法唯一得恢复出$\sv$，因此要尽可能使得$\sv$的分布不服从高斯分布；其次，由中心极限定理，多个分布线性组合后的分布将比原始的多个分布更接近高斯分布，而在求解$\sv$时，如果不加控制，由于$\sv=\Wmat\xv$其实是$\xv$的线性组合，会导致求出的$\sv$不服从高斯分布假设相悖，于是要人为地最大化non-Gaussianity。
+
+	\end{sol}
+
+\end{hw}
+
+
+
+\begin{hw}
+
+	Dimensionality Reduction by FA
+
+	
+
+	\begin{sol}
+
+		首先直接使用了scikit-learn库的因子分析模型，进行了模型选择，这里需要注意它的score()函数虽然可以返回似然值，但是是对所有数据平均后的似然值，为了计算AIC和BIC，我们需要将它再乘以数据量（N）。AIC和BIC中的free parameter的数量，这里使用的是题干中的$(mn+1)$，即只有$\sigma$和矩阵$\Amat$是自由变量。
+
+		\begin{figure}
+
+			\centering
+
+			\includegraphics[width=0.4\linewidth]{Figs/EM_100_3.png}
+
+			\vspace{-0.1cm}
+
+			\caption{直接使用scikit-learn库后的运行结果。}
+
+			\label{fig:EM}
+
+		\end{figure}
+
+		
+
+		另外，自行实现了因子分析的EM算法，同样进行了model selection，但是结果远差于scikit-learn的模型。虽然EM算法最终收敛，同时似然在逐渐上升，但是对每个$m$值计算得到的对数似然值都极低，可能是实现上仍有问题。
+
+		\begin{figure}
+
+			\centering
+
+			\includegraphics[width=0.4\linewidth]{Figs/my_EM.png}
+
+			\vspace{-0.1cm}
+
+			\caption{自行实现EM算法后的运行结果。}
+
+			\label{fig:my_EM}
+
+		\end{figure}
+
+		
+
+		之后，为了测试不同参数对model selection结果的影响，我设置了多组参数（$n\in{10,100}$，$m\in{3,7,10}$，$\sigma\in{0.1,1,10}$）来生成数据。Model selection需要根据AIC或BIC的标准，从真实$m$值的左右共五个值中选出一个$m$。我对每个参数组合进行了$1000$次model selection，并记录这1000次model selection中成功选出真实的$m$值的频率。结果如图~\ref{fig:compare}。
+
+		
+
+		可以看到，当$n=10$，即观测数据有$10$维时，只有真实的隐变量y的维度为$3$且$\sigma$为0.1时，可以成功选出的，同时是百分百会成功选出，反之则完全无法正确选出真实$m$值。而当$n=100$时，更多的参数组合可以成功选出真实的$m$值，即使是非常大的$\sigma$也不会影响到最大似然部分的估计。
+
+		
+
+		在实验中，发现使用AIC，BIC的效果相同，推测可能是数据量的原因，这里都是设置了$N=100$。同时一个比较奇怪的现象是我对每组参数随机地做了1000次实验，结果却是十分稳定的，每组参数的成功选出真实$m$的频率稳定不是1就是0，这有待后续观察。
+
+		
+
+		\begin{figure}
+
+			\centering
+
+			\includegraphics[width=0.6\linewidth]{Figs/model_selection.png}
+
+			\vspace{-0.1cm}
+
+			\caption{不同参数设置。}
+
+			\label{fig:compare}
+
+		\end{figure}
+
+	\end{sol}
+
+\end{hw}
+
+
+
+\begin{hw}
+
+	Spectral clustering
+
+
+
+	\begin{sol}
+
+		为了测试谱聚类我们生成了在不同维度下不同分布的多组数据，并将谱聚类与高斯混合模型（GMM）进行了比较。
+
+		
+
+		从图~\ref{fig:spec_2d}中可以看出，对于前三个环形分布的数据，如果假设同一类的数据是在一个环形上，那么谱聚类的效果远远好于GMM，它可以捕捉到数据分布的连通性信息。而对于由高斯分布生成的数据，高斯混合模型和谱聚类表现相近，但是在第四组数据中可以看出，谱聚类还是很容易将数据误分的，因为它没有能利用到数据生成过程中的高斯分布的先验。而对于最下方的完全随机生成的均匀分布的数据，由于谱聚类和GMM均需要提供类别数量，因而都容易将单一数据划分到多个种类去。
+
+		
+
+		从图~\ref{fig:spec_3d}中的第一个瑞士卷形状的数据分布可以看出，即使是在三维空间中，谱聚类也可以较好地捕捉到一个低维流形，如果数据是沿着瑞士卷分布的，那么会取得很好的聚类效果，同时也许可以使用谱聚类的思路去探索流形嵌入的方法。而第二到第四幅图告诉我们，对三维空间中的高斯分布谱聚类也能取得较好的结果。
+
+		
+
+		更高维的分布不便于可视化就没有再进行比较。总体看来，谱聚类似乎是一个更加通用的聚类方法，对于一些特殊的分布也可以取得较好的聚类结果。但是它不能利用数据生成时的先验信息。
+
+		
+
+		\begin{figure}
+
+			\centering
+
+			\vspace{-0.3cm}
+
+			\includegraphics[width=0.6\linewidth]{./Figs/spec_2d.png}
+
+			\caption{2D平面中的聚类效果。}
+
+			\label{fig:spec_2d}
+
+		\end{figure}
+
+		\begin{figure}
+
+			\centering
+
+			\vspace{-0.3cm}
+
+			\includegraphics[width=0.7\linewidth]{./Figs/spec_3d.png}
+
+			\caption{3D空间中的聚类效果。}
+
+			\label{fig:spec_3d}
+
+		\end{figure}
+
+	\end{sol}	
+
+\end{hw}
+\end{document}
