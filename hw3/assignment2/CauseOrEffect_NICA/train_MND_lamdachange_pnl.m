@@ -54,8 +54,8 @@ for epoch=1:nepochs,
     doepoch_MND_pnl;
     cost_back = [cost_back cost];
 
-    plotdata_mine_pnl
+    % plotdata_mine_pnl
     epochs = epochs + 1;
-    reportresults
+    % reportresults
 end
 
