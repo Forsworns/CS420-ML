@@ -51,8 +51,8 @@ if __name__ == "__main__":
     # xTrain,xTest,yTrain,yTest = loadDataA1()
     # SVM_base(xTrain,xTest,yTrain,yTest,A1_SVM)
 
-    # xTrain,xTest,yTrain,yTest = loadDataA2()
-    # SVM_base(xTrain,xTest,yTrain,yTest,A2_SVM)
+    xTrain,xTest,yTrain,yTest = loadDataA2()
+    SVM_base(xTrain,xTest,yTrain,yTest,A2_SVM)
     
     xTrain,xTest,yTrain,yTest = loadDataB()
     SVM_base(xTrain,xTest,yTrain,yTest,B_SVM)

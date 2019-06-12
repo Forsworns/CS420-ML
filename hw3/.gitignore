@@ -1,4 +1,11 @@
 assignment1/dataset/cifar-10
+assignment1/models
+assignment1/results
 assignment2/dataset/
 assignment2/*.jar
 assignment2/*.tet
+assignment2/*.pdf
+assignment2/dataset
+*/__pycache__
+__pycache__
+instruction/

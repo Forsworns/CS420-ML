@@ -92,7 +92,7 @@ class VGG(object):
 
     def test(self,data,label):
         self.model.compile(loss='categorical_crossentropy',optimizer='sgd',metrics=['accuracy'])
-        loss_and_metric = self.model.evaluate(data,label,batch_size=32)
+        loss_and_metric = self.model.evaluate(data,label,batch_size=32) # 这里的batchsize其实无所谓= =
         print("{} on test set".format(self.name),loss_and_metric)
 
     def load(self):

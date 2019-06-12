@@ -1,0 +1,5 @@
+data/
+model/
+history/
+*.hdf5
+*.npy
