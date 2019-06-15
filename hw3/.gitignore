@@ -1,6 +1,7 @@
 assignment1/dataset/cifar-10
 assignment1/models
 assignment1/results
+assignment1/lib
 assignment2/dataset/
 assignment2/*.jar
 assignment2/*.tet
