@@ -1,5 +1,14 @@
 data/
 model/
 history/
+fool/foolimage
+
+__pycache__
+*/__pycache__
+
 *.hdf5
 *.npy
+*.mdb
+*.jpeg
+*.jpg
+*png
